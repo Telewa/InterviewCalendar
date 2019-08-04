@@ -1,0 +1,48 @@
+version: '3'
+services:
+  database:
+    image: postgres:10.7
+    env_file:
+      - ./devops/secrets/compose.env
+    volumes:
+      - $PWD/../interview_calendar_db:/var/lib/postgresql/data
+    ports:
+      - 2345:5432
+
+  server:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: bash -c "./devops/wait-for-it.sh -t 300 database:5432 && ./devops/server/run.sh"
+    volumes:
+      - "./:/interview_calendar"
+    expose:
+      - 8001
+    env_file:
+      - ./devops/secrets/compose.env
+    depends_on:
+      - database
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./static:/usr/share/nginx/html/static
+    environment:
+      - 'VIRTUAL_HOST=http://*/static/*'
+      - 'VIRTUAL_HOST_WEIGHT=3'
+
+
+  backend_lb:
+    image: dockercloud/haproxy
+    links:
+      - nginx
+      - server
+    ports:
+     - '8000:80'
+     - '1936:1936'
+    environment:
+      - BALANCE=roundrobin
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - server

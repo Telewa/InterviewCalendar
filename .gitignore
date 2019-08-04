@@ -2,6 +2,17 @@
 
 # these can be installed later
 **node_modules**
+backend/static/**
+interview_calendar_db/**
+backend/venv/**
+backend/supervisord.log
+backend/logs/**
+
+# but keep these folder
+!backend/static/.gitkeep
 
 #IDE metadata
 frontend/.idea/**
+backend/.idea/**
+
+
