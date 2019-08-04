@@ -1,0 +1,27 @@
+#root {
+	display: block;
+	justify-content: center;
+	align-items: center;
+	color: #222;
+	background: #ffffff;
+
+	.app {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+
+		.header {
+			flex-grow: 1;
+		}
+
+		.body {
+			flex-grow: 20;
+		}
+
+		.footer {
+			flex-grow: 1;
+		}
+	}
+
+}
+

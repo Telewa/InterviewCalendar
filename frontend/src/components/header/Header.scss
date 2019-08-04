@@ -1,0 +1,19 @@
+.header {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+
+	.header_items {
+		display: flex;
+
+		.title {
+			flex-grow: 1
+		}
+		.account {
+			flex-grow: 1;
+		}
+		.settings {
+			flex-grow: 1;
+		}
+	}
+}

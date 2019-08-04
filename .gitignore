@@ -1,0 +1,7 @@
+**.pyc**
+
+# these can be installed later
+**node_modules**
+
+#IDE metadata
+frontend/.idea/**
