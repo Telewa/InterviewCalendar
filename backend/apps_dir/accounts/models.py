@@ -10,3 +10,7 @@ class User(AbstractUser):
   )
 
   user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=3)
+
+  def __str__(self):
+      return f"{self.username} ({dict(self.USER_TYPE_CHOICES)[self.user_type]})"
+
