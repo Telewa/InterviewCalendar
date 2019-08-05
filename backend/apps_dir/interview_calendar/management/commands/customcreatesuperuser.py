@@ -1,5 +1,6 @@
-from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
+
+from apps_dir.accounts.models import User
 
 
 class Command(BaseCommand):
@@ -13,7 +14,7 @@ class Command(BaseCommand):
         :return:
         """
         if not User.objects.filter(username='admin').exists():
-            User.objects.create_superuser('admin', 'emmanuelt2009@gmail.com', 'admin')
+            User.objects.create_superuser('admin', 'emmanuelt2009@gmail.com', 'admin', user_type=1)
             print("superuser created")
         else:
             print("superuser already exists")

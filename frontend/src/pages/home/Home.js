@@ -10,8 +10,12 @@ export default class Home extends Common {
     body() {
         return (
             <div>
-                Welcome to our {this.page_name} page
+                Hello {this.state.username}, welcome to our {this.page_name} page
             </div>
         );
     }
+    //
+    // logged_out_message(){
+    //     return this.body()
+    // }
 }

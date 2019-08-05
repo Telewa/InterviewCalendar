@@ -1,4 +1,4 @@
-FROM python:3.7.4
+FROM python:3.6
 ENV PYTHONUNBUFFERED 1
 RUN mkdir -p /interview_calendar
 WORKDIR /interview_calendar

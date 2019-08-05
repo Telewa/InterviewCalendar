@@ -4,8 +4,8 @@ services:
     image: postgres:10.7
     env_file:
       - ./devops/secrets/compose.env
-    volumes:
-      - $PWD/../interview_calendar_db:/var/lib/postgresql/data
+#    volumes:
+#      - $PWD/../interview_calendar_db:/var/lib/postgresql/data
     ports:
       - 2345:5432
 
