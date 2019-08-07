@@ -13,6 +13,17 @@ An interview can only start on the hour.
 The API
 allows the caller to optionally define the candidate and optionally to define one or more interviewer. The API requires either the candidate or the interviewer(s) to be set
 
+## Tech used
+### backend
+- The application is built using Python and Django framework
+- Gunicorn and supervisord used to run the Django app
+- Haproxy used as the main Load Balancer
+- Nginx used to serve static files
+- Postgress database
+
+### frontend
+- React JS
+
 ### To Run tests
 ```docker-compose run server python manage.py test```
 
