@@ -1,4 +1,5 @@
-#Interview Calendar
+# Interview Calendar
+
 This is an application which provides an API for an interview calendar.
 There are interviewers and candidates. Each interview may consist of exactly one candidate and one or more interviewers.
 * If there are more interviewers available than candidates, the spare interviewers are distributed evenly across candidates. (This can be done with the provided api). It's a functional requirement
