@@ -17,6 +17,17 @@ class AvailableSlotsSerializer(serializers.Serializer):
         return data
 
 
+class InterviewScheduleSerializer(serializers.Serializer):
+    name = serializers.CharField(allow_null=False, allow_blank=False, max_length=200)
+    candidate = serializers.IntegerField(required=True)
+    interviewers = serializers.ListField(
+        child=serializers.IntegerField(required=True),
+        min_length=1,
+        max_length=10,
+        required=True)
+    start_time = serializers.DateTimeField(required=True)
+
+
 class PeriodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Period

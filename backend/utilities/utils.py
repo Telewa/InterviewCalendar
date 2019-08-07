@@ -63,7 +63,6 @@ def get_my_reserved_slots(current_user):
 
 def get_my_available_slots(current_user):
     # current_user = User.objects.get_by_natural_key("emma")
-
     periods = Period.objects.filter(
         end_time__gte = datetime.datetime.now() + datetime.timedelta(minutes=settings.INTERVIEW_DURATION),
         user=current_user
