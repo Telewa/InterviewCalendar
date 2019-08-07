@@ -50,12 +50,18 @@ def possible_times(start_date, end_date, estimated_duration=settings.INTERVIEW_D
                          'allowed_days': tuple(allowed_days),
                          })
 
-    slots = [str(row[0]) for row in cursor.fetchall() if row[0] > datetime.datetime.now()]
+    slots = [row[0] for row in cursor.fetchall() if row[0] > datetime.datetime.now()]
     return slots
 
+def get_my_reserved_slots(current_user):
+    reservations = Reservation.objects.filter(
+        users=current_user
+    )
+
+    return [reserved_time.start_time for reserved_time in reservations]
 
 
-def get_my_slots(current_user):
+def get_my_available_slots(current_user):
     # current_user = User.objects.get_by_natural_key("emma")
 
     periods = Period.objects.filter(
@@ -63,22 +69,9 @@ def get_my_slots(current_user):
         user=current_user
     )
 
-    reservations = Reservation.objects.filter(
-        user=current_user
-    )
-
-    reserved_times = [str(reserved_time.start_time) for reserved_time in reservations]
-
     available_times = [possible_times(period.start_time, period.end_time) for period in periods]
     flat_list = [item for sublist in available_times for item in sublist]
 
-    from structlog import get_logger
-
-    logger = get_logger(__name__)
-
-    for x in reserved_times:
-        logger.info(x)
-
+    reserved_times = get_my_reserved_slots(current_user)
     # return flat_list
     return [available_time for available_time in flat_list if available_time not in reserved_times]
-

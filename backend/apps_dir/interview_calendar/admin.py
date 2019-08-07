@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
+from apps_dir.accounts.models import User
 from apps_dir.interview_calendar.models import Period, Reservation
 
 class PeriodAdmin(admin.ModelAdmin):
@@ -13,12 +14,22 @@ class PeriodAdmin(admin.ModelAdmin):
 
 admin.site.register(Period, PeriodAdmin)
 
+class UsersInline(admin.TabularInline):
+    extra = 0
+    model = Reservation.users.through
+    min_num = 2
+
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('id', "user", "start_time", "name")
-    list_filter = ("start_time", "user", )
+    list_display = ("name", 'id', "team", "start_time",)
+    # filter_horizontal = ('users',)  # If you don't specify this, you will get a multiple select widget.
+
+    list_filter = ("start_time", "users", )
     list_display_links = ('id', "name", )
     search_fields = ("start_time", "name", )
     list_per_page = 10
     ordering = ("start_time", )
+    inlines = (UsersInline, )
 
 admin.site.register(Reservation, ReservationAdmin)
+
+

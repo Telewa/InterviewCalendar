@@ -16,6 +16,7 @@ export default class Common extends React.Component {
         this.site_name = "Interview Calendar";
         this.year = new Date().getFullYear();
         this.page_name = "Common";
+        this.backend_url = "http://0.0.0.0:8000";
 
         this.state = {
             displayed_form: '',
@@ -26,7 +27,7 @@ export default class Common extends React.Component {
 
     componentDidMount() {
         if (this.state.logged_in) {
-            fetch('http://0.0.0.0:8000/accounts/current_user/', {
+            fetch(this.backend_url +'/accounts/current_user/', {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
@@ -40,7 +41,7 @@ export default class Common extends React.Component {
 
     handle_login = (e, data) => {
         e.preventDefault();
-        fetch('http://0.0.0.0:8000/token-auth/', {
+        fetch(this.backend_url +'/token-auth/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -62,7 +63,7 @@ export default class Common extends React.Component {
 
     handle_signup = (e, data) => {
         e.preventDefault();
-        fetch('http://0.0.0.0:8000/accounts/users/', {
+        fetch(this.backend_url +'/accounts/users/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -92,7 +93,7 @@ export default class Common extends React.Component {
         });
     };
 
-    logged_out_message() {
+    static logged_out_message() {
         return (
             <div>
                 Please Log In to view this page
@@ -147,7 +148,7 @@ export default class Common extends React.Component {
                 <div className="body">
                     {form}
                     {
-                        this.state.logged_in ? this.body() : this.logged_out_message()
+                        this.state.logged_in ? this.body() : Common.logged_out_message()
                     }
                 </div>
                 <Footer site_name={this.site_name} year={this.year}/>

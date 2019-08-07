@@ -6,7 +6,7 @@ import Nav from "../Nav";
 
 class Header extends React.Component {
     constructor(props){
-        super(props)
+        super(props);
         this.user_types = {
             1: "admin",
             2: "interviewer",
@@ -48,7 +48,6 @@ class Header extends React.Component {
                             logged_in_user={this.props.logged_in_user}
                         />
                     </div>
-
                 </nav>
             </div>
         );
