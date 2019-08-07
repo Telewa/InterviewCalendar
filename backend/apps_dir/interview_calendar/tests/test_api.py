@@ -5,10 +5,12 @@ import requests
 from django.test import LiveServerTestCase
 from rest_framework import status
 from rest_framework.reverse import reverse
+from freezegun import freeze_time
 
 from apps_dir.accounts.models import User
 
 
+@freeze_time("07 Aug 2019")
 class TestTeamAvailability(LiveServerTestCase):
 
     def get_users(self, user_type):
