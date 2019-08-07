@@ -4,7 +4,7 @@ env:
   # There should be a time in the future when this is not necessary - it is
   # explained in more detail below.
   DOCKER_COMPOSE_VERSION: 1.23.2
-before_install:
+install:
   # update is required to update the repositories to see the new packages for
   # Docker.
   - sudo apt-get update
@@ -35,7 +35,6 @@ before_install:
   # whatever reason it's best to report that now before your tests start
   # otherwise it can be really tricky to debug why tests are failing sometimes.
   - docker ps
-# This is just our script to setup all the database tables and other fixtures
-  # we need. You should remove this if it's not necessary or you have other
-  # scripts handling this.
+
+script:
   - docker-compose run server python manage.py test
