@@ -1,6 +1,6 @@
 # Interview Calendar
 
-[![Coverage Status](https://coveralls.io/repos/github/Telewa/InterviewCalendar/badge.svg?branch=master)](https://coveralls.io/github/Telewa/InterviewCalendar?branch=master)
+[![Build Status](https://travis-ci.org/Telewa/InterviewCalendar.svg?branch=master)](https://travis-ci.org/Telewa/InterviewCalendar)
 
 This is an application which provides an API for an interview calendar.
 There are interviewers and candidates. Each interview may consist of exactly one candidate and one or more interviewers.
@@ -12,6 +12,17 @@ An interview can only start on the hour.
 
 The API
 allows the caller to optionally define the candidate and optionally to define one or more interviewer. The API requires either the candidate or the interviewer(s) to be set
+
+## Tech used
+### backend
+- The application is built using Python and Django framework
+- Gunicorn and supervisord used to run the Django app
+- Haproxy used as the main Load Balancer
+- Nginx used to serve static files
+- Postgress database
+
+### frontend
+- React JS
 
 ### To Run tests
 ```docker-compose run server python manage.py test```
