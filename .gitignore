@@ -15,4 +15,5 @@ backend/logs/**
 frontend/.idea/**
 backend/.idea/**
 
+backend/.coverage
 
