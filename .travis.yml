@@ -1,3 +1,6 @@
+language: python
+python:
+  - "3.6"
 env:
   # You may want to update this to whatever the latest version is, or keep it
   # the same as your local machines. However, I have only tested it with 1.8.0+.
@@ -26,6 +29,9 @@ install:
   # one we specified). This is not to be confused with the version we printed
   # before doing the update.
   - docker-compose --version
+# we are going to need python
+  - pip install coveralls
+
 # Setup your application stack. You may need to tweak these commands if you
   # doing out-of-the-ordinary docker-compose builds.
   - cd backend
@@ -40,3 +46,6 @@ install:
 script:
 #  - docker-compose run server python manage.py test
   - docker-compose run server bash < run_test_parallel.sh
+
+# send the coverage results to coveralls
+  - coveralls
