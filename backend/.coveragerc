@@ -1,0 +1,24 @@
+[nosetests]
+processes = 4
+verbosity = 2
+
+[coverage:run]
+branch = True
+concurrency = multiprocessing
+parallel = True
+source =
+	  apps_dir/interview_calendar
+	  utilities
+omit=
+	  apps_dir/interview_calendar/apps.py
+      app_dir/interview_calendar/tests/*
+      *__init__.py
+      apps_dir/interview_calendar/admin.py
+      */migrations/*
+      */management/*
+      */tests/*
+
+[report]
+precision = 1
+show_missing = True
+ignore_errors = True

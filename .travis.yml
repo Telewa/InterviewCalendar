@@ -38,4 +38,5 @@ install:
   - docker-compose ps
 
 script:
-  - docker-compose run server python manage.py test
+#  - docker-compose run server python manage.py test
+  - docker-compose run server bash < run_test_parallel.sh
