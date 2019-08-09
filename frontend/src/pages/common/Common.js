@@ -21,27 +21,34 @@ export default class Common extends React.Component {
         this.state = {
             displayed_form: '',
             logged_in: !!localStorage.getItem('token'),
-            username: ''
+            error_message: ''
         };
     }
 
     componentDidMount() {
         if (this.state.logged_in) {
-            fetch(this.backend_url +'/accounts/current_user/', {
+            fetch(this.backend_url + '/accounts/current_user/', {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
             })
                 .then(res => res.json())
-                .then(json => {
-                    this.setState({username: json.username, user_type: json.user_type});
-                });
+                .then(res => {
+                if (res.username) {
+                    this.setState({username: res.username, user_type: res.user_type})
+                } else {
+
+                    // invalidate the session
+                    this.setState({username: '', user_type: '', logged_in: false});
+                    localStorage.removeItem("token");
+                }
+            });
         }
     }
 
     handle_login = (e, data) => {
         e.preventDefault();
-        fetch(this.backend_url +'/token-auth/', {
+        fetch(this.backend_url + '/token-auth/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -50,20 +57,27 @@ export default class Common extends React.Component {
         })
             .then(res => res.json())
             .then(json => {
-                localStorage.setItem('token', json.token);
-                // localStorage.setItem('username', json.user.username);
-                this.setState({
-                    logged_in: true,
-                    displayed_form: '',
-                    username: json.user.username,
-                    user_type: json.user.user_type
-                });
+                if (json.token){
+                    localStorage.setItem('token', json.token);
+
+                    this.setState({
+                        logged_in: true,
+                        displayed_form: '',
+                        username: json.user.username,
+                        user_type: json.user.user_type,
+                        error_message: ""
+                    });
+                }
+                else{
+                    this.setState({ error_message: "invalid password" });
+                    console.log("invalid password", json)
+                }
             });
     };
 
     handle_signup = (e, data) => {
         e.preventDefault();
-        fetch(this.backend_url +'/accounts/users/', {
+        fetch(this.backend_url + '/accounts/users/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -72,13 +86,19 @@ export default class Common extends React.Component {
         })
             .then(res => res.json())
             .then(json => {
-                localStorage.setItem('token', json.token);
-                this.setState({
-                    logged_in: true,
-                    displayed_form: '',
-                    username: json.username,
-                    user_type: json.user_type
-                });
+                if(json.token){
+                    localStorage.setItem('token', json.token);
+                    this.setState({
+                        logged_in: true,
+                        displayed_form: '',
+                        username: json.username,
+                        user_type: json.user_type,
+                        error_message: ""
+                    });
+                }
+                else{
+                    this.setState({ error_message: json.username });
+                }
             });
     };
 
@@ -89,17 +109,19 @@ export default class Common extends React.Component {
 
     display_form = form => {
         this.setState({
-            displayed_form: form
+            displayed_form: form,
+            error_message: ""
         });
     };
 
-    static logged_out_message() {
+    logged_out_message= () => {
         return (
             <div>
+                <div><span>{this.state.error_message}</span></div>
                 Please Log In to view this page
             </div>
         )
-    }
+    };
 
     body() {
         return (
@@ -109,18 +131,6 @@ export default class Common extends React.Component {
         );
     }
 
-    // render() {
-    //     return (
-    //         <div className="app container-fluid">
-    //             <Header site_name={this.site_name} page_name={this.page_name}/>
-    //             {/*<Body site_name={this.site_name}/>*/}
-    //             <div className="body">
-    //                 {this.body()}
-    //             </div>
-    //             <Footer site_name={this.site_name} year={this.year}/>
-    //         </div>
-    //     );
-    // }
     render() {
         let form;
         switch (this.state.displayed_form) {
@@ -148,7 +158,7 @@ export default class Common extends React.Component {
                 <div className="body">
                     {form}
                     {
-                        this.state.logged_in ? this.body() : Common.logged_out_message()
+                        this.state.logged_in ? this.body() : this.logged_out_message()
                     }
                 </div>
                 <Footer site_name={this.site_name} year={this.year}/>
