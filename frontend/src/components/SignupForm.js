@@ -19,8 +19,11 @@ class SignupForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={e => this.props.handle_signup(e, this.state)}>
+            <form className="centered_content" onSubmit={e => this.props.handle_signup(e, this.state)}>
                 <h4>Sign Up</h4>
+                <div className="error_message">
+                    {this.props.error_message}
+                </div>
                 <label htmlFor="username">Username</label>
                 <input
                     type="text"
@@ -44,5 +47,6 @@ class SignupForm extends React.Component {
 export default SignupForm;
 
 SignupForm.propTypes = {
-    handle_signup: PropTypes.func.isRequired
+    handle_signup: PropTypes.func.isRequired,
+    error_message: PropTypes.string.isRequired
 };

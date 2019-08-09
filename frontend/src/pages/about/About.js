@@ -6,5 +6,6 @@ export default class About extends Common {
     constructor(props) {
         super(props);
         this.page_name = "About";
+        this.requires_login = false;
     }
 }

@@ -17,6 +17,7 @@ export default class Common extends React.Component {
         this.year = new Date().getFullYear();
         this.page_name = "Common";
         this.backend_url = "http://0.0.0.0:8000";
+        this.requires_login = true; // does this page require that the user is logged in?
 
         this.state = {
             displayed_form: '',
@@ -34,15 +35,15 @@ export default class Common extends React.Component {
             })
                 .then(res => res.json())
                 .then(res => {
-                if (res.username) {
-                    this.setState({username: res.username, user_type: res.user_type})
-                } else {
+                    if (res.username) {
+                        this.setState({username: res.username, user_type: res.user_type})
+                    } else {
 
-                    // invalidate the session
-                    this.setState({username: '', user_type: '', logged_in: false});
-                    localStorage.removeItem("token");
-                }
-            });
+                        // invalidate the session
+                        this.setState({username: '', user_type: '', logged_in: false});
+                        localStorage.removeItem("token");
+                    }
+                });
         }
     }
 
@@ -57,7 +58,7 @@ export default class Common extends React.Component {
         })
             .then(res => res.json())
             .then(json => {
-                if (json.token){
+                if (json.token) {
                     localStorage.setItem('token', json.token);
 
                     this.setState({
@@ -67,9 +68,8 @@ export default class Common extends React.Component {
                         user_type: json.user.user_type,
                         error_message: ""
                     });
-                }
-                else{
-                    this.setState({ error_message: "invalid password" });
+                } else {
+                    this.setState({error_message: "invalid password"});
                     console.log("invalid password", json)
                 }
             });
@@ -86,7 +86,7 @@ export default class Common extends React.Component {
         })
             .then(res => res.json())
             .then(json => {
-                if(json.token){
+                if (json.token) {
                     localStorage.setItem('token', json.token);
                     this.setState({
                         logged_in: true,
@@ -95,9 +95,8 @@ export default class Common extends React.Component {
                         user_type: json.user_type,
                         error_message: ""
                     });
-                }
-                else{
-                    this.setState({ error_message: json.username });
+                } else {
+                    this.setState({error_message: json.username});
                 }
             });
     };
@@ -114,10 +113,9 @@ export default class Common extends React.Component {
         });
     };
 
-    logged_out_message= () => {
+    logged_out_message = () => {
         return (
             <div>
-                <div><span>{this.state.error_message}</span></div>
                 Please Log In to view this page
             </div>
         )
@@ -126,7 +124,7 @@ export default class Common extends React.Component {
     body() {
         return (
             <div>
-                Hello {this.state.username}, welcome to our {this.page_name} page
+                Welcome to our {this.page_name} page
             </div>
         );
     }
@@ -135,10 +133,10 @@ export default class Common extends React.Component {
         let form;
         switch (this.state.displayed_form) {
             case 'login':
-                form = <LoginForm handle_login={this.handle_login}/>;
+                form = <LoginForm handle_login={this.handle_login}  error_message={this.state.error_message}/>;
                 break;
             case 'signup':
-                form = <SignupForm handle_signup={this.handle_signup}/>;
+                form = <SignupForm handle_signup={this.handle_signup} error_message={this.state.error_message}/>;
                 break;
             default:
                 form = null;
@@ -156,10 +154,10 @@ export default class Common extends React.Component {
                     handle_logout={this.handle_logout}
                 />
                 <div className="body">
-                    {form}
                     {
-                        this.state.logged_in ? this.body() : this.logged_out_message()
+                        this.requires_login ? (this.state.logged_in ? this.body() : this.logged_out_message()): this.body()
                     }
+                    {form}
                 </div>
                 <Footer site_name={this.site_name} year={this.year}/>
             </div>

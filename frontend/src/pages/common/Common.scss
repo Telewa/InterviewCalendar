@@ -1,5 +1,11 @@
 $primary-color: lightblue;
 
-.footer, .header{
+.footer, .header {
   background-color: $primary-color;
+}
+
+body {
+  .error_message {
+    color: red;
+  }
 }

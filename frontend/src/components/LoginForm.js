@@ -19,8 +19,11 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={e => this.props.handle_login(e, this.state)}>
+            <form className="centered_content" onSubmit={e => this.props.handle_login(e, this.state)}>
                 <h4>Log In</h4>
+                <div className="error_message">
+                    {this.props.error_message}
+                </div>
                 <label htmlFor="username">Username</label>
                 <input
                     type="text"
@@ -44,5 +47,6 @@ class LoginForm extends React.Component {
 export default LoginForm;
 
 LoginForm.propTypes = {
-    handle_login: PropTypes.func.isRequired
+    handle_login: PropTypes.func.isRequired,
+    error_message: PropTypes.string.isRequired
 };

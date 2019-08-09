@@ -2,7 +2,7 @@ import React from 'react';
 import './Header.scss';
 import {Link} from "react-router-dom";
 import Nav from "../Nav";
-
+import PropTypes from 'prop-types';
 
 class Header extends React.Component {
     constructor(props){
@@ -36,10 +36,6 @@ class Header extends React.Component {
                             <li className="nav-item">
                                 <Link to="/about" className="nav-link fa fa-info"> About US</Link>
                             </li>
-
-                            <li className="nav-item">
-                                <Link to="/settings" className="nav-link fa fa-gears"> Settings</Link>
-                            </li>
                         </ul>
                         <Nav
                             logged_in={this.props.logged_in}
@@ -55,3 +51,11 @@ class Header extends React.Component {
 }
 
 export default Header
+
+
+Header.propTypes = {
+    site_name: PropTypes.string.isRequired,
+    page_name: PropTypes.string.isRequired,
+    logged_in: PropTypes.bool.isRequired,
+    logged_in_user: PropTypes.string,
+};
