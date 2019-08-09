@@ -103,7 +103,7 @@ export default class Common extends React.Component {
 
     handle_logout = () => {
         localStorage.removeItem('token');
-        this.setState({logged_in: false, username: ''});
+        this.setState({logged_in: false, username: '', user_type: ''});
     };
 
     display_form = form => {
