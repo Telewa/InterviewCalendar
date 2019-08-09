@@ -30,7 +30,7 @@ install:
   # before doing the update.
   - docker-compose --version
 # we are going to need python
-  - pip install coveralls
+  - pip install codecov
 
 # Setup your application stack. You may need to tweak these commands if you
   # doing out-of-the-ordinary docker-compose builds.
@@ -48,4 +48,4 @@ script:
   - docker-compose run server bash < run_test_parallel.sh
 
 # send the coverage results to coveralls
-  - coveralls
+  - codecov
