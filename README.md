@@ -1,7 +1,7 @@
 # Interview Calendar
 
 [![Build Status](https://travis-ci.org/Telewa/InterviewCalendar.svg?branch=master)](https://travis-ci.org/Telewa/InterviewCalendar)
-[![Coverage Status](https://coveralls.io/repos/github/Telewa/InterviewCalendar/badge.svg?branch=master)](https://coveralls.io/github/Telewa/InterviewCalendar?branch=master)
+[![codecov](https://codecov.io/gh/Telewa/InterviewCalendar/branch/master/graph/badge.svg)](https://codecov.io/gh/Telewa/InterviewCalendar)
 
 This is an application which provides an API for an interview calendar.
 There are interviewers and candidates. Each interview may consist of exactly one candidate and one or more interviewers.

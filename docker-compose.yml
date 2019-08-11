@@ -3,7 +3,7 @@ services:
   database:
     image: postgres:10.7
     env_file:
-      - ./devops/secrets/compose.env
+      - ./backend/devops/secrets/compose.env
 #    volumes:
 #      - $PWD/../interview_calendar_db:/var/lib/postgresql/data
     ports:
@@ -12,21 +12,21 @@ services:
   server:
     build:
       dockerfile: Dockerfile
-      context: .
-    command: bash -c "./devops/wait-for-it.sh -t 300 database:5432 && ./devops/server/run.sh"
+      context: ./backend
+    command: bash -c "./backend/devops/wait-for-it.sh -t 300 database:5432 && ./backend/devops/server/run.sh"
     volumes:
-      - "./:/interview_calendar"
+      - "./:/calendar"
     expose:
       - 8001
     env_file:
-      - ./devops/secrets/compose.env
+      - ./backend/devops/secrets/compose.env
     depends_on:
       - database
 
   nginx:
     image: nginx
     volumes:
-      - ./static:/usr/share/nginx/html/static
+      - ./backend/static:/usr/share/nginx/html/static
     environment:
       - 'VIRTUAL_HOST=http://*/static/*'
       - 'VIRTUAL_HOST_WEIGHT=3'

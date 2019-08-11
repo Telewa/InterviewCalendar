@@ -7,16 +7,17 @@ branch = True
 concurrency = multiprocessing
 parallel = True
 source =
-	  apps_dir/interview_calendar
-	  utilities
+	backend/apps_dir/interview_calendar
+	backend/utilities
 omit=
-	  apps_dir/interview_calendar/apps.py
-      app_dir/interview_calendar/tests/*
-      *__init__.py
-      apps_dir/interview_calendar/admin.py
-      */migrations/*
-      */management/*
-      */tests/*
+	backend/apps_dir/interview_calendar/apps.py
+	backend/app_dir/interview_calendar/tests/*
+    *__init__.py
+    backend/apps_dir/interview_calendar/admin.py
+    */migrations/*
+    */management/*
+    */tests/*
+    */frontend/*
 
 [report]
 precision = 1
