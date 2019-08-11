@@ -26,7 +26,7 @@ allows the caller to optionally define the candidate and optionally to define on
 - React JS
 
 ### To Run tests
-```docker-compose run server python manage.py test```
+```docker-compose run server python backend/manage.py test```
 
 ### Here are postman collections to manual tests
 https://www.getpostman.com/collections/9b53e6e699aac4b0f3fd
