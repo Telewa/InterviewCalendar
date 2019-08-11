@@ -10,4 +10,4 @@ supervisor==4.0.2
 coverage==4.5.4
 requests==2.22.0
 freezegun==0.3.12
-
+codecov

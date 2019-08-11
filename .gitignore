@@ -5,8 +5,10 @@
 backend/static/**
 interview_calendar_db/**
 backend/venv/**
-backend/supervisord.log
+supervisord.log
+coverage.xml
 backend/logs/**
+.coverage
 
 # but keep these folder
 !backend/static/.gitkeep
